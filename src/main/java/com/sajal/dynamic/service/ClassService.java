@@ -27,8 +27,8 @@ public class ClassService {
     @PostConstruct
 	public void reload() {
 		userDir = getUserDirectory();
-		sourceDir = Paths.get(userDir, "..", "Code", "java").toString();
-		classDir = Paths.get(userDir, "..", "Code", "class").toString();
+		sourceDir = Paths.get(userDir, "Code", "java").toString();
+		classDir = Paths.get(userDir, "Code", "class").toString();
 		compileJavaFiles(sourceDir, classDir);
 	}
 
@@ -65,7 +65,6 @@ public class ClassService {
 			File[] sourceFiles = new File(sourceDirectory).listFiles((dir, name) -> name.endsWith(".java"));
 			compiler.getTask(null, fileManager, null, Arrays.asList("-d", classDirectory), null,
 					fileManager.getJavaFileObjectsFromFiles(Arrays.asList(sourceFiles))).call();
-
 			fileManager.close();
 		} catch (Exception e) {
 			e.printStackTrace();
